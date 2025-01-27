@@ -14,18 +14,16 @@ public class ReadingTrackerApp extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Main Container
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
-        // Title Section
         JPanel titlePanel = new JPanel(new BorderLayout());
-        titlePanel.setBackground(new Color(60, 80, 120)); // Custom background color
+        titlePanel.setBackground(new Color(60, 80, 120)); 
 
         JLabel titleLabel = new JLabel("Reading Tracker");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10)); // Padding
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10)); 
 
         JLabel imageLabel = new JLabel();
         ImageIcon scaledIcon = new ImageIcon(
@@ -44,38 +42,37 @@ public class ReadingTrackerApp extends JFrame {
         JTable table = new JTable(tableModel) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 4; // Only actions column is editable
+                return column == 4;
             }
 
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component c = super.prepareRenderer(renderer, row, column);
-                c.setFont(new Font("Arial", Font.PLAIN, 14)); // Custom font
+                c.setFont(new Font("Arial", Font.PLAIN, 14)); 
                 if (!isRowSelected(row)) {
-                    c.setBackground(row % 2 == 0 ? new Color(245, 245, 245) : Color.WHITE); // Row background color
+                    c.setBackground(row % 2 == 0 ? new Color(245, 245, 245) : Color.WHITE); 
                 }
                 return c;
             }
         };
 
-        table.setRowHeight(120); // Adjust row height for better visibility
-        table.setIntercellSpacing(new Dimension(15, 15)); // Increased padding between cells
+        table.setRowHeight(120); 
+        table.setIntercellSpacing(new Dimension(15, 15));
 
-        // Custom Render for Action Buttons
         table.getColumnModel().getColumn(4).setCellRenderer((table1, value, isSelected, hasFocus, row, column) -> {
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
             panel.setBackground(Color.WHITE);
 
             JButton editButton = new JButton("Edit");
-            editButton.setBackground(new Color(102, 178, 255)); // Light blue
+            editButton.setBackground(new Color(102, 178, 255)); 
             editButton.setForeground(Color.WHITE);
-            editButton.setPreferredSize(new Dimension(80, 30)); // Adjusted size
+            editButton.setPreferredSize(new Dimension(80, 30)); 
             editButton.addActionListener(e -> openEditBookDialog(row));
 
             JButton deleteButton = new JButton("Delete");
-            deleteButton.setBackground(new Color(255, 102, 102)); // Light red
+            deleteButton.setBackground(new Color(255, 102, 102)); 
             deleteButton.setForeground(Color.WHITE);
-            deleteButton.setPreferredSize(new Dimension(120, 30)); // Adjusted size
+            deleteButton.setPreferredSize(new Dimension(120, 30)); 
             deleteButton.addActionListener(e -> {
                 int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this book?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
@@ -90,7 +87,6 @@ public class ReadingTrackerApp extends JFrame {
             return panel;
         });
 
-        // Custom Render for Cover Image
         table.getColumnModel().getColumn(3).setCellRenderer((table1, value, isSelected, hasFocus, row, column) -> {
             if (value instanceof ImageIcon) {
                 JLabel label = new JLabel((ImageIcon) value);
@@ -103,18 +99,17 @@ public class ReadingTrackerApp extends JFrame {
         JScrollPane tableScrollPane = new JScrollPane(table);
         mainPanel.add(tableScrollPane, BorderLayout.CENTER);
 
-        // Button Section
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(new Color(240, 240, 240));
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
         JButton addButton = new JButton("Add Book");
-        addButton.setBackground(new Color(102, 204, 102)); // Green
+        addButton.setBackground(new Color(102, 204, 102)); 
         addButton.setForeground(Color.WHITE);
         addButton.addActionListener(e -> openAddBookDialog());
 
         JButton clearButton = new JButton("Clear All");
-        clearButton.setBackground(new Color(255, 153, 51)); // Orange
+        clearButton.setBackground(new Color(255, 153, 51));
         clearButton.setForeground(Color.WHITE);
         clearButton.addActionListener(e -> {
             books.clear();
@@ -258,7 +253,8 @@ public class ReadingTrackerApp extends JFrame {
 
     private void openEditBookDialog(int rowIndex) {
         Book book = books.get(rowIndex);
-        openAddBookDialog(); // Reuse Add Book Dialog and pre-fill data for editing
+        openAddBookDialog(); 
+        
     }
 
     private void updateTable() {
